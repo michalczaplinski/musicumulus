@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Connect with SoundCloud</title>
+  </head>
+  <body >
+    <b style="text-align: center;">This popup should automatically close in a few seconds</b>
+  </body>
+  <script>
+    function closeWindow() {
+      window.setTimeout(window.opener.SC.connectCallback, 200)
+    };
+
+    console.log(window.opener);
+    window.onload = closeWindow();
+  </script>
+</html>

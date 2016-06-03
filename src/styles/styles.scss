@@ -1,0 +1,43 @@
+$turquoise: #f50;
+
+.my-container {
+  margin: 0;
+  padding: 0 4%;
+
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+
+@media screen and (max-width: 652px) {
+  .my-container {
+    height: 100%;
+    flex-direction: column;
+  }
+  .my-track {
+    flex: 1 1 0;
+    width: 100% !important;
+  }
+}
+
+.header {
+  box-shadow: 0px 2px 1px 0px rgba(197, 197, 197, 0.84);
+}
+
+@media screen and (max-width: 768px) {
+  .header .container {
+    flex-direction: row !important;
+  }
+}
+
+@import "./player";
+@import "./player.slider";
+@import "./spinner";
+@import "../../node_modules/bulma/bulma";
+
+//$fa-font-path: "../../node_modules/font-awesome/fonts";
+//@import "../../node_modules/font-awesome-webpack";
+//@import "../../node_modules/font-awesome";
