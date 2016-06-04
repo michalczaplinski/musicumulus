@@ -11,6 +11,8 @@ class Player extends Component {
     this.pause = this.pause.bind(this);
     this.play = this.play.bind(this);
     this.PlayButton = this.PlayButton.bind(this);
+    this.playNextTrack = this.playNextTrack.bind(this);
+    this.playPreviousTrack = this.playPreviousTrack.bind(this);
     this.SCPlayer = {};
   }
 
@@ -60,6 +62,28 @@ class Player extends Component {
     }
   }
 
+  playNextTrack() {
+    let currentIndex = this.props.tracks.findIndex((track, index, array) => {
+      return track.id == this.props.playerState.track_data.id;
+    });
+
+    // TODO In case the current track is the last in the array, fetch more.
+    this.startStreaming(this.props.tracks[currentIndex+1]);
+  }
+
+  playPreviousTrack() {
+    let currentIndex = this.props.tracks.findIndex((track, index, array) => {
+      return track.id == this.props.playerState.track_data.id;
+    });
+
+    if (currentIndex == 0) {
+      return;
+      // TODO perhaps show a notification;
+    }
+
+    this.startStreaming(this.props.tracks[currentIndex-1]);
+  }
+
   PlayButton() {
     let handleClick = this.props.playerState.is_playing ? this.pause : this.play;
     let icon = this.props.playerState.is_playing ? 'fa fa-pause' : 'fa fa-play';
@@ -91,13 +115,16 @@ class Player extends Component {
           <span className="player--title-item" >{ trackData.title }</span>
         </a>
 
-        <a className="player--item">
+        <a className="player--item" onClick={this.playPreviousTrack}>
           <i className="fa fa-step-backward"></i>
         </a>
+
         {this.PlayButton()}
-        <a className="player--item">
+
+        <a className="player--item" onClick={this.playNextTrack}>
           <i className="fa fa-step-forward"></i>
         </a>
+
         <span className="player--slider">
           <input type="range" defaultValue="0"/>
         </span>

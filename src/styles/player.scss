@@ -1,5 +1,3 @@
-//////////////// PLAYER
-
 .player.visible {
   display: flex;
   flex-direction: row;
@@ -19,6 +17,18 @@
 .player.hidden {
   visibility: hidden;
   bottom: -40px;
+}
+
+@media screen and (max-width: 652px) {
+  .player.visible {
+    height: 80px;
+    transform: translate(0, -40px);
+    transition: visibility 0s, transform 0.2s linear;
+  }
+  .player.hidden {
+    visibility: hidden;
+    bottom: -80px;
+  }
 }
 
 .player--item {
