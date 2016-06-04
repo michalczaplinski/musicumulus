@@ -37,3 +37,6 @@ dist
 
 # Mac files
 .DS_Store
+
+# the file with AWS keys, etc.
+.secrets.js
