@@ -13,7 +13,7 @@ import './styles/styles.scss';
 
 SC.initialize({
   client_id: __DEV__ ? 'ac7b31ea50f2019f548ffb8f7056b41d' : 'a5b498c755d3a7867dd2b3915420ffd5',
-  redirect_uri: __DEV__ ? 'http://localhost:3000/callback.html' : 'http://musicumul.us/callback.html',
+  redirect_uri: __DEV__ ? 'http://localhost:3000/callback.html' : 'https://musicumul.us/callback.html',
   oauth_token: window.localStorage.getItem('oauth_token') || undefined
 });
 

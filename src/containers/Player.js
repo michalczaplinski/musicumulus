@@ -76,8 +76,12 @@ class Player extends Component {
                                                    'http://placehold.it/64x64');
     let username = trackData.user ? trackData.user.username : '';
 
+    let playerVisibility = this.props.playerState.is_streaming ? 'visible' : 'hidden';
+
+    let className = `player ${playerVisibility}`;
+
     return (
-      <div className="player">
+      <div className={className}>
         <a className="player--item">
           <img src={ coverImageUrl } alt="Track Image" height="40" width="40"/>
         </a>
