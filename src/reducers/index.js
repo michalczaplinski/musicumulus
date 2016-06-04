@@ -2,7 +2,6 @@ import { combineReducers } from 'redux';
 import objectAssign from 'object-assign';
 
 import * as actions from '../actions/actionTypes';
-import initialState from './initialState';
 import {trackFilter} from '../logic/logic';
 
 function userData(state = {}, action) {

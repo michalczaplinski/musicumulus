@@ -1,5 +1,5 @@
 {
-  "name": "cirrus",
+  "name": "musicumulus",
   "version": "0.0.1",
   "description": "Soundcloud client built with React and Redux",
   "scripts": {
@@ -16,7 +16,8 @@
     "prebuild": "npm run clean-dist && npm run build:html && npm run lint",
     "build": "babel-node tools/build.js && npm run open:dist",
     "test": "mocha tools/testSetup.js src/**/*.spec.js --reporter progress",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "deploy": "aws s3 sync ./dist s3://musicumul.us --delete"
   },
   "author": "Michal Czaplinski",
   "license": "MIT",
@@ -64,6 +65,7 @@
     "cheerio": "0.20.0",
     "colors": "1.1.2",
     "connect-history-api-fallback": "1.2.0",
+    "copy-webpack-plugin": "3.0.1",
     "cross-env": "1.0.7",
     "css-loader": "0.23.1",
     "enzyme": "2.2.0",
@@ -91,18 +93,13 @@
     "react",
     "reactjs",
     "react-router",
-    "hot",
-    "reload",
-    "hmr",
-    "live",
-    "edit",
+    "music",
     "webpack",
     "redux",
-    "flux",
     "soundcloud"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/michalczaplinski/cirrus"
+    "url": "https://github.com/michalczaplinski/musicumulus"
   }
 }

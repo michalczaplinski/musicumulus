@@ -1,4 +1,5 @@
-/*eslint-disable import/default*/
+/* eslint-disable import/default */
+/* global __DEV__ */
 
 import React from 'react';
 import {render} from 'react-dom';
@@ -6,15 +7,13 @@ import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import routes from './routes';
 import configureStore from './store/configureStore';
-import initialState from './reducers/initialState';
 import SC from 'soundcloud';
 
 import './styles/styles.scss';
 
-
 SC.initialize({
-  client_id: initialState.client_id,
-  redirect_uri: initialState.redirect_uri,
+  client_id: __DEV__ ? 'ac7b31ea50f2019f548ffb8f7056b41d' : 'a5b498c755d3a7867dd2b3915420ffd5',
+  redirect_uri: __DEV__ ? 'http://localhost:3000/callback.html' : 'http://musicumul.us/callback.html',
   oauth_token: window.localStorage.getItem('oauth_token') || undefined
 });
 
