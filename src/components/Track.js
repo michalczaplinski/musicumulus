@@ -1,10 +1,11 @@
 import React, {PropTypes, Component} from 'react';
 import moment from 'moment';
 import SC from 'soundcloud';
+import {httpsify} from '../helpers/helpers';
 
 const Track = ({ trackData, streamTrack }) => {
 
-  var image = trackData.artwork_url || trackData.user.avatar_url || 'http://placehold.it/64x64';
+  var imageUrl = trackData.artwork_url || trackData.user.avatar_url || 'https://placehold.it/64x64';
 
   var title = trackData.title;
   title.length > 23 ? title = title.slice(0, 23) + '...' : title;
@@ -20,14 +21,14 @@ const Track = ({ trackData, streamTrack }) => {
 
   return (
     <a className="card my-track"
-       style={{backgroundImage: 'url(' + trackData.waveform_url + ')'}}
+       style={{backgroundImage: 'url(' + httpsify(trackData.waveform_url) + ')'}}
        onClick={stream}>
       <div className="card-content">
         <div className="media">
 
           <div className="media-left">
             <figure className="image is-64x64">
-              <img src={image} alt="Image"></img>
+              <img src={httpsify(imageUrl)} alt="Image"></img>
             </figure>
           </div>
 

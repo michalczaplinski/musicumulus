@@ -1,6 +1,6 @@
 import diff from 'deep-diff';
 
-function propDiff(props, newProps) {
+export function propDiff(props, newProps) {
 
   let propDiff = diff(props, newProps) || [];
 
@@ -11,4 +11,12 @@ function propDiff(props, newProps) {
   });
 
   console.log("%c" + "-".repeat(80), "background: black" );
+}
+
+export function httpsify(url) {
+  if (url.startsWith('http://')) {
+    return url.replace('http://', 'https://')
+  } else {
+    return url;
+  }
 }

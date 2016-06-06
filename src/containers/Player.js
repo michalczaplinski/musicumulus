@@ -97,7 +97,7 @@ class Player extends Component {
     let trackData = this.props.playerState.track_data;
     let coverImageUrl = trackData.artwork_url || ((trackData.user != undefined ) ?
                                                    trackData.user.avatar_url :
-                                                   'http://placehold.it/64x64');
+                                                   'https://placehold.it/64x64');
     let username = trackData.user ? trackData.user.username : '';
 
     let playerVisibility = this.props.playerState.is_streaming ? 'visible' : 'hidden';

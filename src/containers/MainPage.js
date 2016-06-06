@@ -10,6 +10,8 @@ import TopBar from '../components/TopBar';
 import Spinner from '../components/Spinner';
 import LoadMoreButton from '../components/LoadMoreButton';
 import Player from './Player';
+import {httpsify} from '../helpers/helpers';
+
 
 export class MainPage extends Component {
 
@@ -53,7 +55,7 @@ export class MainPage extends Component {
     return (
       <div>
         <div className="my-container">
-          {data.map(track => <Track key={track.id + track.user_id}
+          {data.map(track => <Track key={track.id + track.user_id + Math.floor(Math.random()*1000000000)}
                                     trackData={track}
                                     streamTrack={this.props.actions.streamTrack}/>)}
         </div>

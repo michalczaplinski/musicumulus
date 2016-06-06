@@ -28,7 +28,7 @@ export default {
     new CopyWebpackPlugin([
       {from: './src/callback.html', to: `${__dirname}/dist/callback.html`},
       {from: './src/404.html', to: `${__dirname}/dist/404.html`},
-      {from: './favicon.ico', to: `${__dirname}/dist/favicon.ico`}
+      {from: './src/favicon.ico', to: `${__dirname}/dist/favicon.ico`}
     ])
   ],
   module: {
