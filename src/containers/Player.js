@@ -10,19 +10,12 @@ class Player extends Component {
     this.startStreaming = this.startStreaming.bind(this);
     this.pause = this.pause.bind(this);
     this.play = this.play.bind(this);
-    this.PlayButton = this.PlayButton.bind(this);
     this.playNextTrack = this.playNextTrack.bind(this);
     this.playPreviousTrack = this.playPreviousTrack.bind(this);
+    this.updateTrackPosition = this.updateTrackPosition.bind(this);
+    this.handleTrackPositionUpdate = this.handleTrackPositionUpdate.bind(this);
+    this.PlayButton = this.PlayButton.bind(this);
     this.SCPlayer = {};
-  }
-
-  componentWillReceiveProps(nextProps) {
-    let current = this.props.playerState.track_data;
-    let next = nextProps.playerState.track_data;
-
-    if (current != next) {
-      this.startStreaming(nextProps.playerState.track_data);
-    }
   }
 
   addSCPlayerEventListeners(SCPlayer) {
@@ -47,6 +40,7 @@ class Player extends Component {
     if (this.props.playerState.is_streaming) {
       this.SCPlayer.pause();
       this.props.pauseTrack();
+
     }
   }
 
@@ -84,12 +78,38 @@ class Player extends Component {
     this.startStreaming(this.props.tracks[currentIndex-1]);
   }
 
+  updateTrackPosition() {
+    this.props.updateTrackPosition(parseInt(this.SCPlayer.currentTime()));
+  }
+
+  handleTrackPositionUpdate(event) {
+    let newPosition = event.target.value;
+    this.SCPlayer.seek(newPosition);
+    this.props.updateTrackPosition(newPosition);
+  }
+
+  // TODO make own component
   PlayButton() {
     let handleClick = this.props.playerState.is_playing ? this.pause : this.play;
     let icon = this.props.playerState.is_playing ? 'fa fa-pause' : 'fa fa-play';
     return  <a className="player--item" onClick={handleClick}>
               <i className={icon}></i>
             </a>
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      if (this.props.playerState.is_playing) { this.updateTrackPosition(); }
+    }, 500)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let current = this.props.playerState.track_data;
+    let next = nextProps.playerState.track_data;
+
+    if (current != next) {
+      this.startStreaming(nextProps.playerState.track_data);
+    }
   }
 
   render() {
@@ -126,7 +146,11 @@ class Player extends Component {
         </a>
 
         <span className="player--slider">
-          <input type="range" defaultValue="0"/>
+          <input type="range" min="0"
+                 max={this.props.playerState.track_data.duration}
+                 value={this.props.playerState.track_position}
+                 onChange={this.handleTrackPositionUpdate}
+                 />
         </span>
         <a className="player--item">
           <i className="fa fa-volume-up"> </i>
