@@ -17,7 +17,7 @@
     "build": "babel-node tools/build.js && npm run open:dist",
     "test": "mocha tools/testSetup.js src/**/*.spec.js --reporter progress",
     "test:watch": "npm run test -- --watch",
-    "deploy": "aws s3 sync ./dist s3://musicumul.us --delete"
+    "deploy": "aws s3 sync ./dist s3://musicumul.us --delete --acl public-read"
   },
   "author": "Michal Czaplinski",
   "license": "MIT",
