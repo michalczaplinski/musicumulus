@@ -1,4 +1,5 @@
 import diff from 'deep-diff';
+import moment from 'moment';
 
 export function propDiff(props, newProps) {
 
@@ -18,5 +19,19 @@ export function httpsify(url) {
     return url.replace('http://', 'https://')
   } else {
     return url;
+  }
+}
+
+/*
+ * Helper for formatting times in audio-friendly way
+ */
+export function trackTime(time) {
+  let duration = moment.duration(time);
+  if (duration.hours()) {
+    return moment.utc(time).format("HH:mm:ss");
+  } else if (duration.minutes()) {
+    return moment.utc(time).format("mm:ss");
+  } else {
+    return moment.utc(time).format("00:ss");
   }
 }

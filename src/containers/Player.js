@@ -1,6 +1,15 @@
 import React, {PropTypes, Component} from 'react';
 import SC from 'soundcloud';
 
+import {PlayButton} from '../components/PlayButton';
+
+
+// SCPlayer is a global as it is used all over the place and we cannot put in component
+// state or the store because it keeps track of it own state and would result in multiple
+// unnecessary rerenders.
+export var SCPlayer = {};
+
+
 class Player extends Component {
 
   //TODO: add proptypes
@@ -8,52 +17,34 @@ class Player extends Component {
   constructor(props) {
     super(props);
     this.startStreaming = this.startStreaming.bind(this);
-    this.pause = this.pause.bind(this);
-    this.play = this.play.bind(this);
     this.playNextTrack = this.playNextTrack.bind(this);
     this.playPreviousTrack = this.playPreviousTrack.bind(this);
     this.updateTrackPosition = this.updateTrackPosition.bind(this);
     this.handleTrackPositionUpdate = this.handleTrackPositionUpdate.bind(this);
-    this.PlayButton = this.PlayButton.bind(this);
-    this.SCPlayer = {};
   }
 
-  addSCPlayerEventListeners(SCPlayer) {
+  addSCPlayerEventListeners() {
+
+    // handle potential errors
     SCPlayer.on('audio_error', (err) => { console.error('audio_error', err)});
     SCPlayer.on('geo_blocked', (err) => { console.error('geo_blocked', err)});
     SCPlayer.on('no_streams', (err) => { console.error('no_streams', err)});
     SCPlayer.on('no_protocol', (err) => { console.error('no_protocol', err)});
     SCPlayer.on('no_connection', (err) => { console.error('no_connection', err)})
+
+    SCPlayer.on('finished', () => { this.props.updateTrackPosition(0) })
   }
 
   startStreaming(trackData) {
-    SC.stream(`/tracks/${trackData.id}`).then(SCPlayer => {
-      this.SCPlayer = SCPlayer;
+    SC.stream(`/tracks/${trackData.id}`).then(player => {
+
+      // SCPlayer is a global;
+      SCPlayer = player;
       this.props.streamTrack(trackData);
-      this.addSCPlayerEventListeners(SCPlayer);
+      this.addSCPlayerEventListeners();
       SCPlayer.play();
       this.props.playTrack(trackData.id);
     })
-  }
-
-  pause() {
-    if (this.props.playerState.is_streaming) {
-      this.SCPlayer.pause();
-      this.props.pauseTrack();
-
-    }
-  }
-
-  play() {
-    // in case we have a streaming instance of SC player, just resume current song.
-    if (this.props.playerState.is_streaming) {
-      this.SCPlayer.play();
-      this.props.resumeTrack();
-
-    // otherwise, stream the first song on the list.
-    } else {
-      this.startStreaming(this.props.tracks[0])
-    }
   }
 
   playNextTrack() {
@@ -79,37 +70,33 @@ class Player extends Component {
   }
 
   updateTrackPosition() {
-    this.props.updateTrackPosition(parseInt(this.SCPlayer.currentTime()));
+    this.props.updateTrackPosition(parseInt(SCPlayer.currentTime()));
   }
 
   handleTrackPositionUpdate(event) {
     let newPosition = event.target.value;
-    this.SCPlayer.seek(newPosition);
+    SCPlayer.seek(newPosition);
     this.props.updateTrackPosition(newPosition);
   }
 
-  // TODO make own component
-  PlayButton() {
-    let handleClick = this.props.playerState.is_playing ? this.pause : this.play;
-    let icon = this.props.playerState.is_playing ? 'fa fa-pause' : 'fa fa-play';
-    return  <a className="player--item" onClick={handleClick}>
-              <i className={icon}></i>
-            </a>
-  }
-
   componentDidMount() {
-    setInterval(() => {
+    this.interval = setInterval(() => {
       if (this.props.playerState.is_playing) { this.updateTrackPosition(); }
     }, 500)
   }
 
   componentWillReceiveProps(nextProps) {
-    let current = this.props.playerState.track_data;
-    let next = nextProps.playerState.track_data;
+    let currentTrack = this.props.playerState.track_data;
+    let nextTrack = nextProps.playerState.track_data;
 
-    if (current != next) {
+    if (currentTrack != nextTrack) {
       this.startStreaming(nextProps.playerState.track_data);
+      this.props.updateTrackPosition(0);
     }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   render() {
@@ -139,7 +126,13 @@ class Player extends Component {
           <i className="fa fa-step-backward"></i>
         </a>
 
-        {this.PlayButton()}
+        <PlayButton tracks={this.props.track_data}
+                    is_streaming={this.props.playerState.is_streaming}
+                    is_playing={this.props.playerState.is_playing}
+                    startStreaming={this.props.startStreaming}
+                    pauseTrack={this.props.pauseTrack}
+                    resumeTrack={this.props.resumeTrack}
+                    />
 
         <a className="player--item" onClick={this.playNextTrack}>
           <i className="fa fa-step-forward"></i>

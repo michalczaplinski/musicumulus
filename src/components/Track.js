@@ -1,7 +1,7 @@
 import React, {PropTypes, Component} from 'react';
 import moment from 'moment';
 import SC from 'soundcloud';
-import {httpsify} from '../helpers/helpers';
+import {httpsify, trackTime} from '../helpers/helpers';
 
 const Track = ({ trackData, streamTrack }) => {
 
@@ -35,6 +35,7 @@ const Track = ({ trackData, streamTrack }) => {
           <div className="media-content">
             <p className="title is-5">{trackData.user.username}</p>
             <p className="subtitle is-6">{title}</p>
+            <p> {trackTime(trackData.duration)}</p>
           </div>
         </div>
 
