@@ -16,6 +16,7 @@
 - add the fontawesome icons on tracks
 - add global "snackbar" notifications
 - optimize the player for smaler screens with media queries
+- keyboard shortcuts
 
 ### next up
 - enzyme testing

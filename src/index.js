@@ -29,7 +29,8 @@ const store = configureStore({
     track_data: {},
     is_streaming: false,
     is_playing: false,
-    track_position: 0
+    track_position: 0,
+    volume: 0
   }
 });
 
