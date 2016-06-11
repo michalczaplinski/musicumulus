@@ -1,7 +1,7 @@
-////////////// PLAYER SLIDER
-
 $background: #ddd;
+$slider-height: 2px;
 
+// ALL
 input[type=range] {
   /*removes default webkit styles*/
   -webkit-appearance: none;
@@ -13,53 +13,63 @@ input[type=range] {
   //width: 300px;
   width: 100%;
 }
-input[type=range]::-webkit-slider-runnable-track {
+input[type=range]:focus {
+  outline: none;
+}
+
+@mixin slider-track {
   width: 100%;
-  height: 5px;
+  height: $slider-height;
   background: $background;
   border: none;
+  padding-top: 5px;
+  padding-bottom: 5px;
   border-radius: 3px;
+  cursor: pointer;
+}
+
+@mixin thumb {
+  border: none;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background: $turquoise;
+  cursor: pointer;
+}
+
+// WEBKIT
+input[type=range]::-webkit-slider-runnable-track {
+  @include slider-track
 }
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  border: none;
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  background: $turquoise;
-  margin-top: -4px;
-}
-input[type=range]:focus {
-  outline: none;
+  margin-top: -5px;
+  @include thumb
 }
 input[type=range]:focus::-webkit-slider-runnable-track {
   background: $background;
 }
 
+
+// FIREFOX
 input[type=range]::-moz-range-track {
-  width: 100%;
-  height: 5px;
-  background: $background;
-  border: none;
-  border-radius: 3px;
+  @include slider-track
 }
 input[type=range]::-moz-range-thumb {
-  border: none;
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  background: $turquoise;
+  @include thumb
 }
 
 /*hide the outline behind the border*/
 input[type=range]:-moz-focusring{
   outline: 1px solid white;
-  outline-offset: -1px;
+  //outline-offset: -1px;
 }
 
+
+// IE and EDGE
 input[type=range]::-ms-track {
   width: 100%;
-  height: 5px;
+  height: $slider-height;
 
   /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
   background: transparent;
@@ -70,6 +80,8 @@ input[type=range]::-ms-track {
 
   /*remove default tick marks*/
   color: transparent;
+  cursor: pointer;
+
 }
 input[type=range]::-ms-fill-lower {
   background: $background;
@@ -80,11 +92,7 @@ input[type=range]::-ms-fill-upper {
   border-radius: 10px;
 }
 input[type=range]::-ms-thumb {
-  border: none;
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  background: $turquoise;
+  @include thumb
 }
 input[type=range]:focus::-ms-fill-lower {
   background: $background;
