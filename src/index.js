@@ -30,7 +30,8 @@ const store = configureStore({
     is_streaming: false,
     is_playing: false,
     track_position: 0,
-    volume: 0
+    volume: 0.5,
+    previous_volume: 0.5
   }
 });
 

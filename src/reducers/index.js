@@ -92,6 +92,12 @@ function playerState(state = {}, action) {
         track_position: action.track_position
       });
 
+    case actions.CHANGE_VOLUME:
+      return objectAssign({}, state, {
+        volume: action.volume,
+        previous_volume: action.previous_volume
+      });
+
     default:
       return state
   }

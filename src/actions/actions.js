@@ -149,10 +149,12 @@ export function pauseTrack() {
   }
 }
 
-export function changeVolume(loudness) {
+export function changeVolume(volume, previous_volume) {
   return {
     type: types.CHANGE_VOLUME,
-    loudness: loudness }
+    volume: volume,
+    previous_volume: previous_volume
+  }
 }
 
 export function updateTrackPosition(position) {

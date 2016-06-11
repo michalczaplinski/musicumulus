@@ -21,6 +21,7 @@ class Player extends Component {
     this.playPreviousTrack = this.playPreviousTrack.bind(this);
     this.updateTrackPosition = this.updateTrackPosition.bind(this);
     this.handleTrackPositionUpdate = this.handleTrackPositionUpdate.bind(this);
+    this.changeVolume = this.changeVolume.bind(this);
   }
 
   addSCPlayerEventListeners() {
@@ -30,7 +31,7 @@ class Player extends Component {
     SCPlayer.on('geo_blocked', (err) => { console.error('geo_blocked', err)});
     SCPlayer.on('no_streams', (err) => { console.error('no_streams', err)});
     SCPlayer.on('no_protocol', (err) => { console.error('no_protocol', err)});
-    SCPlayer.on('no_connection', (err) => { console.error('no_connection', err)})
+    SCPlayer.on('no_connection', (err) => { console.error('no_connection', err)});
 
     SCPlayer.on('finished', () => { this.props.updateTrackPosition(0) })
   }
@@ -79,6 +80,21 @@ class Player extends Component {
     this.props.updateTrackPosition(newPosition);
   }
 
+  changeVolume(volume) {
+    this.props.changeVolume(volume, this.props.playerState.volume);
+    SCPlayer.setVolume(volume);
+  }
+
+  mute() {
+    this.props.changeVolume(0, this.props.playerState.volume);
+    SCPlayer.setVolume(0)
+  }
+
+  unmute() {
+    this.props.changeVolume(this.props.playerState.previous_volume, 0);
+    SCPlayer.setVolume(this.props.playerState.previous_volume);
+  }
+
   componentDidMount() {
     this.interval = setInterval(() => {
       if (this.props.playerState.is_playing) { this.updateTrackPosition(); }
@@ -109,10 +125,11 @@ class Player extends Component {
 
     let playerVisibility = this.props.playerState.is_streaming ? 'visible' : 'hidden';
 
-    let className = `player ${playerVisibility}`;
+    let playerClass = `player ${playerVisibility}`;
+    let volumeIcon = `fa fa-volume-${this.props.playerState.volume > 0 ? 'up' : 'off'}`;
 
     return (
-      <div className={className}>
+      <div className={playerClass}>
         <a className="player--item">
           <img src={ coverImageUrl } alt="Track Image" height="40" width="40"/>
         </a>
@@ -145,8 +162,9 @@ class Player extends Component {
                  onChange={this.handleTrackPositionUpdate}
                  />
         </span>
-        <a className="player--item">
-          <i className="fa fa-volume-up"> </i>
+        <a className="player--item"
+           onClick={() => this.props.playerState.volume > 0 ? this.mute() : this.unmute()}>
+          <i className={volumeIcon}> </i>
         </a>
       </div>
   )}
