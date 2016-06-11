@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react';
 
 import {SCPlayer} from '../containers/Player';
 
-export const PlayButton = ({ tracks, is_streaming, is_playing, startStreaming, pauseTrack, resumeTrack }) => {
+const PlayerPlayButton = ({ tracks, is_streaming, is_playing, startStreaming, pauseTrack, resumeTrack }) => {
 
   const pause = () => {
     if (is_streaming) {
@@ -32,3 +32,5 @@ export const PlayButton = ({ tracks, is_streaming, is_playing, startStreaming, p
     </a>
   )
 };
+
+export default PlayerPlayButton

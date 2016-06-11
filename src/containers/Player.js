@@ -1,7 +1,8 @@
 import React, {PropTypes, Component} from 'react';
 import SC from 'soundcloud';
 
-import {PlayButton} from '../components/PlayButton';
+import PlayerPlayButton from '../components/PlayerPlayButton';
+import PlayerVolume from '../components/PlayerVolume';
 
 
 // SCPlayer is a global as it is used all over the place and we cannot put in component
@@ -21,7 +22,6 @@ class Player extends Component {
     this.playPreviousTrack = this.playPreviousTrack.bind(this);
     this.updateTrackPosition = this.updateTrackPosition.bind(this);
     this.handleTrackPositionUpdate = this.handleTrackPositionUpdate.bind(this);
-    this.changeVolume = this.changeVolume.bind(this);
   }
 
   addSCPlayerEventListeners() {
@@ -80,21 +80,6 @@ class Player extends Component {
     this.props.updateTrackPosition(newPosition);
   }
 
-  changeVolume(volume) {
-    this.props.changeVolume(volume, this.props.playerState.volume);
-    SCPlayer.setVolume(volume);
-  }
-
-  mute() {
-    this.props.changeVolume(0, this.props.playerState.volume);
-    SCPlayer.setVolume(0)
-  }
-
-  unmute() {
-    this.props.changeVolume(this.props.playerState.previous_volume, 0);
-    SCPlayer.setVolume(this.props.playerState.previous_volume);
-  }
-
   componentDidMount() {
     this.interval = setInterval(() => {
       if (this.props.playerState.is_playing) { this.updateTrackPosition(); }
@@ -126,7 +111,6 @@ class Player extends Component {
     let playerVisibility = this.props.playerState.is_streaming ? 'visible' : 'hidden';
 
     let playerClass = `player ${playerVisibility}`;
-    let volumeIcon = `fa fa-volume-${this.props.playerState.volume > 0 ? 'up' : 'off'}`;
 
     return (
       <div className={playerClass}>
@@ -143,7 +127,7 @@ class Player extends Component {
           <i className="fa fa-step-backward"></i>
         </a>
 
-        <PlayButton tracks={this.props.track_data}
+        <PlayerPlayButton tracks={this.props.track_data}
                     is_streaming={this.props.playerState.is_streaming}
                     is_playing={this.props.playerState.is_playing}
                     startStreaming={this.props.startStreaming}
@@ -162,10 +146,10 @@ class Player extends Component {
                  onChange={this.handleTrackPositionUpdate}
                  />
         </span>
-        <a className="player--item"
-           onClick={() => this.props.playerState.volume > 0 ? this.mute() : this.unmute()}>
-          <i className={volumeIcon}> </i>
-        </a>
+        <PlayerVolume currentVolume={this.props.playerState.volume}
+                      previousVolume={this.props.playerState.previous_volume}
+                      changeVolume={this.props.changeVolume}
+        />
       </div>
   )}
 }

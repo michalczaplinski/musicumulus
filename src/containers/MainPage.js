@@ -8,7 +8,6 @@ import * as actions from '../actions/actions';
 import Track from '../components/Track';
 import TopBar from '../components/TopBar';
 import Spinner from '../components/Spinner';
-import LoadMoreButton from '../components/LoadMoreButton';
 import Player from './Player';
 import {httpsify} from '../helpers/helpers';
 
