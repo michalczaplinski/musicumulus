@@ -78,7 +78,7 @@ class Player extends Component {
   handleTrackPositionUpdate(event) {
     let newPosition = event.target.value;
     SCPlayer.seek(newPosition);
-    this.props.updateTrackPosition(newPosition);
+    this.props.updateTrackPosition(parseInt(newPosition));
   }
 
   componentDidMount() {
@@ -125,8 +125,7 @@ class Player extends Component {
         </a>
 
         <span className="player--timeElapsed" >
-          {trackTime(this.props.playerState.track_data.track_position /
-                     this.props.playerState.track_data.duration)}
+          {trackTime(this.props.playerState.track_position)}
         </span>
 
         <a className="player--button" onClick={this.playPreviousTrack}>
@@ -134,12 +133,11 @@ class Player extends Component {
         </a>
 
         <PlayerPlayButton tracks={this.props.track_data}
-                    is_streaming={this.props.playerState.is_streaming}
-                    is_playing={this.props.playerState.is_playing}
-                    startStreaming={this.props.startStreaming}
-                    pauseTrack={this.props.pauseTrack}
-                    resumeTrack={this.props.resumeTrack}
-                    />
+                          is_streaming={this.props.playerState.is_streaming}
+                          is_playing={this.props.playerState.is_playing}
+                          startStreaming={this.props.startStreaming}
+                          pauseTrack={this.props.pauseTrack}
+                          resumeTrack={this.props.resumeTrack} />
 
         <a className="player--button" onClick={this.playNextTrack}>
           <i className="fa fa-step-forward"></i>

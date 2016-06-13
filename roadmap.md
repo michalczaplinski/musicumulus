@@ -8,24 +8,23 @@
 ✅only show the Player once a track is playing
 ✅seeking track position
 ✅deploy !
+✅add track timer (elapsed time)
+✅make the Player elements fixed width so that the buttons
+  dont jump when playing new tracks.
 
-- add track timer (elapsed time)
+- fix the notplaying bug in chrome on mobile
+- add text-overflow+ellipsis instead of guessing content EVERYWHERE
 - make all state variables camelCase or like_this.
-- make the Player elements fixed width so that the buttons dont jump when playing new tracks.
 - add the fontawesome icons on tracks
-- add global "snackbar" notifications
-- optimize the player for smaler screens with media queries
+- optimize the player for smaller screens with media queries
 - keyboard shortcuts
 
 ### next up
 - enzyme testing
 - split Player and other components into dumb components and containters
 
-
 ### in the future
 - add volume controls
 - remove dependency on bulma CSS
 - write better comments
-
-### small changes
-- add text-overflow instead of guessing content EVERYWHERE
+- add global "snackbar" notifications
