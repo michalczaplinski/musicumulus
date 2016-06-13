@@ -27,7 +27,7 @@ const PlayerPlayButton = ({ tracks, is_streaming, is_playing, startStreaming, pa
   let icon = is_playing ? 'fa fa-pause' : 'fa fa-play';
 
   return (
-    <a className="player--item" onClick={handleClick}>
+    <a className="player--button" onClick={handleClick}>
       <i className={icon}></i>
     </a>
   )

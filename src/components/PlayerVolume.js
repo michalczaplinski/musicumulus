@@ -22,7 +22,7 @@ const PlayerVolume = ({currentVolume, previousVolume, changeVolume}) => {
   let volumeIcon = `fa fa-volume-${currentVolume > 0 ? 'up' : 'off'}`;
 
   return (
-    <a className="player--item"
+    <a className="player--volume"
        onClick={() => currentVolume > 0 ? mute() : unmute()}>
       <i className={volumeIcon}> </i>
     </a>

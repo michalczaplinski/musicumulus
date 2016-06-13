@@ -36,12 +36,30 @@
   margin-right: 2%;
 }
 
+.player--button, .player--volume {
+  display: flex;
+  margin-right: 2%;
+  width: 10px;
+}
+
+.player--cover {
+  display: flex;
+  margin-right: 2%;
+  width: 40px;
+}
+
+.player--timeElapsed {
+  display: flex;
+  margin-right: 2%;
+  min-width: 40px;
+}
+
 .player--title {
   display: flex;
   flex-shrink: 10;
   flex-direction: column;
   margin-right: 2%;
-  max-width: 250px;
+  max-width: 150px;
   min-width: 100px;
 }
 

@@ -1,6 +1,7 @@
 import React, {PropTypes, Component} from 'react';
 import SC from 'soundcloud';
 
+import {trackTime} from '../helpers/helpers';
 import PlayerPlayButton from '../components/PlayerPlayButton';
 import PlayerVolume from '../components/PlayerVolume';
 
@@ -114,7 +115,7 @@ class Player extends Component {
 
     return (
       <div className={playerClass}>
-        <a className="player--item">
+        <a className="player--cover">
           <img src={ coverImageUrl } alt="Track Image" height="40" width="40"/>
         </a>
 
@@ -123,7 +124,12 @@ class Player extends Component {
           <span className="player--title-item" >{ trackData.title }</span>
         </a>
 
-        <a className="player--item" onClick={this.playPreviousTrack}>
+        <span className="player--timeElapsed" >
+          {trackTime(this.props.playerState.track_data.track_position /
+                     this.props.playerState.track_data.duration)}
+        </span>
+
+        <a className="player--button" onClick={this.playPreviousTrack}>
           <i className="fa fa-step-backward"></i>
         </a>
 
@@ -135,7 +141,7 @@ class Player extends Component {
                     resumeTrack={this.props.resumeTrack}
                     />
 
-        <a className="player--item" onClick={this.playNextTrack}>
+        <a className="player--button" onClick={this.playNextTrack}>
           <i className="fa fa-step-forward"></i>
         </a>
 

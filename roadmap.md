@@ -9,7 +9,6 @@
 ✅seeking track position
 ✅deploy !
 
-- add volume controls
 - add track timer (elapsed time)
 - make all state variables camelCase or like_this.
 - make the Player elements fixed width so that the buttons dont jump when playing new tracks.
@@ -24,6 +23,7 @@
 
 
 ### in the future
+- add volume controls
 - remove dependency on bulma CSS
 - write better comments
 
