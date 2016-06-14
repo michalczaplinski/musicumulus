@@ -6,23 +6,12 @@ import {httpsify, trackTime} from '../helpers/helpers';
 const Track = ({ trackData, streamTrack }) => {
 
   var imageUrl = trackData.artwork_url || trackData.user.avatar_url || 'https://placehold.it/64x64';
-
-  var title = trackData.title;
-  title.length > 23 ? title = title.slice(0, 23) + '...' : title;
-
-  var username = trackData.user.username;
-  username.length > 15 ? username = username.slice(0, 23) + '...' : username;
-
   var creationDate = moment(trackData.created_at, 'YYYY/MM/DD hh:mm:ss +0000').fromNow();
 
-  const stream = () => {
-    streamTrack(trackData);
-  };
-
   return (
-    <a className="card my-track"
+    <a className="card track"
        style={{backgroundImage: 'url(' + httpsify(trackData.waveform_url) + ')'}}
-       onClick={stream}>
+       onClick={ () => streamTrack(trackData) }>
       <div className="card-content">
         <div className="media">
 
@@ -33,8 +22,8 @@ const Track = ({ trackData, streamTrack }) => {
           </div>
 
           <div className="media-content">
-            <p className="title is-5">{trackData.user.username}</p>
-            <p className="subtitle is-6">{title}</p>
+            <p className="track--trackArtist title is-5">{trackData.user.username}</p>
+            <p className="track--trackTitle subtitle is-6">{trackData.title}</p>
             <p> {trackTime(trackData.duration)}</p>
           </div>
         </div>
@@ -43,11 +32,11 @@ const Track = ({ trackData, streamTrack }) => {
           <span className="content--item">
             <small>{creationDate}</small>
           </span>
-          <span className="content--item">
-            <small>plays: {trackData.playback_count}</small>
+          <span className="content--item track--plays">
+            <small><i className="track--playsIcon fa fa-music"> </i>{trackData.playback_count}</small>
           </span>
-          <span className="content--item">
-            <small>likes: {trackData.likes_count}</small>
+          <span className="content--item track--heart">
+            <small><i className="track--heartIcon fa fa-heart"></i> {trackData.likes_count}</small>
           </span>
         </div>
       </div>

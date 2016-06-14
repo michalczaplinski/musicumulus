@@ -2,7 +2,7 @@ $turquoise: #f50;
 
 .my-container {
   margin: 0;
-  padding: 0 4%;
+  padding: 0 3%;
 
   display: flex;
   list-style: none;
@@ -17,7 +17,7 @@ $turquoise: #f50;
     height: 100%;
     flex-direction: column;
   }
-  .my-track {
+  .track {
     flex: 1 1 0;
     width: 100% !important;
   }
@@ -35,6 +35,7 @@ $turquoise: #f50;
 
 @import "./player";
 @import "./player.slider";
+@import "./track";
 @import "./spinner";
 @import "../../node_modules/bulma/bulma";
 

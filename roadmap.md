@@ -9,17 +9,17 @@
 ✅seeking track position
 ✅deploy !
 ✅add track timer (elapsed time)
-✅make the Player elements fixed width so that the buttons
-  dont jump when playing new tracks.
+✅make the Player elements fixed width so that the buttons dont jump when playing new tracks.
+✅add text-overflow+ellipsis instead of guessing content EVERYWHERE
 
 - fix the notplaying bug in chrome on mobile
-- add text-overflow+ellipsis instead of guessing content EVERYWHERE
 - make all state variables camelCase or like_this.
 - add the fontawesome icons on tracks
 - optimize the player for smaller screens with media queries
 - keyboard shortcuts
 
 ### next up
+- put the SC Player in the middleware
 - enzyme testing
 - split Player and other components into dumb components and containters
 

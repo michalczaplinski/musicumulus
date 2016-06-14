@@ -1,0 +1,24 @@
+.track--trackArtist, .track--trackTitle {
+  width: 200px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.media > .media-content > .track--trackTitle {
+  margin-bottom: 14px;
+}
+
+.track .track--heart:hover {
+  color: #ff472e;
+}
+
+.track .track--plays:hover {
+  color: #1f99d3;
+}
+
+.track .track--playsIcon, .track .track--heartIcon {
+  font-size: 12px;
+  margin-top: 5px;
+  margin-right: 4px;
+}
