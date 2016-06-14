@@ -11,20 +11,20 @@
 ✅add track timer (elapsed time)
 ✅make the Player elements fixed width so that the buttons dont jump when playing new tracks.
 ✅add text-overflow+ellipsis instead of guessing content EVERYWHERE
+✅ add the fontawesome icons on tracks
 
 - fix the notplaying bug in chrome on mobile
-- make all state variables camelCase or like_this.
-- add the fontawesome icons on tracks
+- remove dependency on bulma CSS
 - optimize the player for smaller screens with media queries
 - keyboard shortcuts
+- enzyme testing
 
 ### next up
 - put the SC Player in the middleware
-- enzyme testing
 - split Player and other components into dumb components and containters
 
 ### in the future
 - add volume controls
-- remove dependency on bulma CSS
+- make all state variables camelCase or like_this.
 - write better comments
 - add global "snackbar" notifications
