@@ -139,7 +139,7 @@ class Player extends Component {
                           pauseTrack={this.props.pauseTrack}
                           resumeTrack={this.props.resumeTrack} />
 
-        <a className="player--button" onClick={this.playNextTrack}>
+        <a className="player--playButton" onClick={this.playNextTrack}>
           <i className="fa fa-step-forward"></i>
         </a>
 
